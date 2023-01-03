@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-widthcss, initial-scale=1.0">
+        <link rel="stylesheet"href="pricing-table.css">
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap" rel="stylesheet">
+        <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+
+</head>
+<body>
+        <div class="pricing-plan__container">
+       <section class="pricing-plan ">
+        <div class="pricing-plan__header">
+                <h1 class="pricing-plan__title">Starter Plan</h1>
+                <h2 class="pricing-plan__summary">For those getting started</h2>
+        </div>
+                <div class="pricing-plan__description">
+                        <ul class="pricing-plan__list">
+                                <li class="pricing-plan__feature">Feature #1</li>
+                                <li class="pricing-plan__feature">Feature #2</li>
+                                <li class="pricing-plan__feature">Feature #3</li>
+                        </ul>
+                </div>
+        <div class="pricing-plan__action">
+                <p class="pricing-plan__cost">68$</p>
+                <p class="pricing-plan__text">per month</p>
+                <a href="" target="_blank" class="pricing-plan__button">Subscribe</a>
+                <p class="pricing-plan__tsxt">Minimum spend $816 over 12 months</p>
+        </div>
+       </section>
+       <section class="pricing-plan pricing-plan__highlighted">
+        <div class="pricing-plan__special-text">Recommended</div>
+        <div class="pricing-plan__header">
+                <h1 class="pricing-plan__title">Starter Plan</h1>
+                <h2 class="pricing-plan__summary">For those getting started</h2>
+                </div>
+                <div class="pricing-plan__description">
+                        <ul class="pricing-plan__list">
+                                <li class="pricing-plan__feature">Feature #1</li>
+                                <li class="pricing-plan__feature">Feature #2</li>
+                                <li class="pricing-plan__feature">Feature #3</li>
+                        </ul>
+                </div>
+
+        <div class="pricing-plan__action">
+                <p class="pricing-plan__cost">68$</p>
+                <p class="pricing-plan__text">per month</p>
+                <a href="" target="_blank" class="pricing-plan__button">Subscribe</a>
+                <p class="pricing-plan__tsxt">Minimum spend $816 over 12 months</p>
+        </div>
+       </section>
+       <section class="pricing-plan">
+        <div class="pricing-plan__header">
+                <h1 class="pricing-plan__title">Starter Plan</h1>
+                <h2 class="pricing-plan__summary">For those getting started</h2>
+        </div>
+                <div class="pricing-plan__description">
+
+                        <ul class="pricing-plan__list">
+                                <li class="pricing-plan__feature">Feature #1</li>
+                                <li class="pricing-plan__feature">Feature #2</li>
+                                <li class="pricing-plan__feature">Feature #3</li>
+                        </ul>
+                </div>
+
+        <div class="pricing-plan__action">
+                <p class="pricing-plan__cost">68$</p>
+                <p class="pricing-plan__text">per month</p>
+                <a href="" target="_blank" class="pricing-plan__button">Subscribe</a>
+                <p class="pricing-plan__tsxt">Minimum spend $816 over 12 months</p>
+        </div>
+       </section>
+
+       <script>
+const getDataFromLs = (user_id) => {
+    return JSON.parse(localStorage.getItem(user_id));
+}
+$(".pricing-plan__button").on('click', async function() {
+    //  get url from the browser
+    var url = new URL(window.location.href);
+    var user_id = url.searchParams.get('user_id')
+
+    let user_data = getDataFromLs(user_id);
+    if (user_data) {
+        let tempData = {
+            ...user_data,
+            subscription: true
+        }
+
+        localStorage.setItem(user_id, JSON.stringify(tempData));
+
+        alert("Subscribe Successfully")
+
+        window.location.href = "../signup form/login.html"
+    } else {
+        alert("Invalid User Id");
+
+    }
+})
+       </script>
+</body>
+</html>

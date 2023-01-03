@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Login and Registration Form</title>
+        <script src="https://kit.fontawesome.com/e6346a2e67.js" crossorigin="anonymous"></script>
+        <link rel="stylesheet"href="styles/style.css">
+        <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+</head>
+<body>
+        <div class="user">
+                <div class="form-box">
+                <div class="button-box">
+                        <div id ="btn">
+                        </div>
+                        <button type="button" class ="toggle-btn"onclick="Login()">Log In</button>
+                        <button type="button" class ="toggle-btn"onclick="Register()">Register</button>
+                </div>
+                <div class ="social-icons">
+                        <i class="fa-brands fa-facebook"></i>
+                        <i class="fa-brands fa-linkedin"></i>
+                        <i class="fa-brands fa-google"></i>
+                        <i class="fa-brands fa-twitter"></i>
+
+         </div>
+         <form id ="Login"class="input-group loginForm">
+                <input type="text" class="input-field login_userId" placeholder="User Id" required value="admin">
+                <input type="password" class="input-field login_password" placeholder="Enter Password" required value="admin">
+                <input type="checkbox" class="check-box"><span>Remember Password</span>
+                <button type="submit" class="submit-btn">Log In</button>
+        </form>
+        <form id="Register" class="input-group registerForm">
+                <input type="text" class="input-field register_userId" placeholder="User Id" required value="admin">
+                <input type= "email" class="input-field register_emailId" placeholder="Email Id" required value="admin@g.com">
+                <input type="text" class="input-field register_password" placeholder="Enter Password" required value="admin">
+                <!-- <input type="checkbox" class="check-box"><span>I agree to the terms and conditions</span> -->
+                <button type="submit" class="submit-btn" style="margin-top: 20px;">Register</button>
+        </form>
+        </div>
+        </div>
+        <script>
+          var x = document.getElementById("Login");
+var y = document.getElementById("Register");
+var z = document.getElementById("btn");
+
+function Register() {
+    x.style.left = "-400px";
+    y.style.left = "50px";
+    z.style.left = "110px";
+}
+
+function Login() {
+    x.style.left = "50px";
+    y.style.left = "450px";
+    z.style.left = "0px";
+}
+
+const saveDataToLs = (formData) => {
+    localStorage.setItem(formData.user_id, JSON.stringify(formData));
+}
+
+const getDataFromLs = (user_id) => {
+    return JSON.parse(localStorage.getItem(user_id));
+}
+
+$(".registerForm").on('submit', async function(e) {
+    e.preventDefault();
+
+    let formData = {
+        user_id: $(".register_userId").val(),
+        email_id: $(".register_emailId").val(),
+        password: $(".register_password").val(),
+        subscription: false
+    };
+
+
+
+    if (getDataFromLs(formData.user_id)) {
+        alert("User already exists");
+    } else {
+        saveDataToLs(formData);
+        alert("User registered successfully");
+        // Login()
+        let url = `../SUBSCRIBTION PRICE TAG/subscribe.html?user_id=${formData.user_id}`;
+        window.location.href = url;
+
+    }
+
+})
+
+
+$(".loginForm").on('submit', async function(e) {
+    e.preventDefault();
+    let formData = {
+        user_id: $(".login_userId").val(),
+        password: $(".login_password").val(),
+    };
+    let userData = await getDataFromLs(formData.user_id);
+
+    if (userData) {
+        if (userData.password === formData.password) {
+            if (userData.subscription) {
+                window.location.href = "../dashboard/web.html";
+            } else {
+                alert("You are not subscribed to our website");
+            }
+        } else {
+            alert("Invalid Password");
+        }
+    } else {
+        alert("Invalid User Id");
+    }
+})
+        </script>
+       </body>
+</body>
+</html>
